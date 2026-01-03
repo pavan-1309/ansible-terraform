@@ -25,7 +25,7 @@ echo "Fixing SSH key permissions..."
 chmod 600 ~/.ssh/my-keypair.pem
 
 echo "Waiting for instances to be ready..."
-sleep 120
+sleep 60
 
 echo "Testing dynamic inventory..."
 ansible-inventory --list
