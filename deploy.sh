@@ -30,8 +30,11 @@ sleep 60
 echo "Installing AWS collection..."
 ansible-galaxy collection install amazon.aws --force
 
+echo "Testing AWS credentials..."
+aws ec2 describe-instances --region ap-south-1 --query 'Reservations[*].Instances[*].[InstanceId,State.Name,Tags[?Key==`Environment`].Value|[0]]' --output table
+
 echo "Testing dynamic inventory..."
-ansible-inventory --list
+ansible-inventory --list -vvv
 
 echo "Running playbook with dynamic inventory..."
 ansible-playbook \
