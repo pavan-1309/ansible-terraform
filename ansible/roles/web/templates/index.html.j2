@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ group_names[0] | upper }} Environment</title>
+</head>
+<body>
+  <h1>{{ group_names[0] | upper }} ENVIRONMENT</h1>
+  <p>Deployed automatically using Terraform + Ansible</p>
+  <p>Hostname: {{ inventory_hostname }}</p>
+</body>
+</html>
+

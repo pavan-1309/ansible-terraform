@@ -1,0 +1,5 @@
+- name: Configure Web Servers
+  hosts: test:stage:prod
+  become: true
+  roles:
+    - web

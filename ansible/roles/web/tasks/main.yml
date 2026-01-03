@@ -1,0 +1,24 @@
+- name: Install nginx (Ubuntu)
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install httpd (Amazon Linux)
+  dnf:
+    name: httpd
+    state: present
+  when: ansible_distribution == "Amazon Linux"
+
+- name: Start web service
+  service:
+    name: "{{ 'nginx' if ansible_distribution == 'Ubuntu' else 'httpd' }}"
+    state: started
+    enabled: yes
+
+- name: Deploy index page
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+
