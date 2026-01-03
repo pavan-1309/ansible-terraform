@@ -27,12 +27,15 @@ chmod 600 ~/.ssh/my-keypair.pem
 echo "Waiting for instances to be ready..."
 sleep 60
 
+echo "Installing AWS collection..."
+ansible-galaxy collection install amazon.aws --force
+
 echo "Testing dynamic inventory..."
 ansible-inventory --list
 
-echo "Running playbook with static inventory..."
+echo "Running playbook with dynamic inventory..."
 ansible-playbook \
-  -i ansible/inventory_static.ini \
+  -i ansible/inventory.aws_ec2.yml \
   ansible/playbook.yml \
   --limit "$ENV"
 
