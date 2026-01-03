@@ -19,7 +19,7 @@ terraform apply -auto-approve \
   -var="environment=$ENV" \
   -var="instance_count=2"
 
-cd ..
+cd ansible
 
 echo "Fixing SSH key permissions..."
 chmod 600 ~/.ssh/my-keypair.pem
@@ -34,11 +34,11 @@ echo "Testing AWS credentials..."
 aws ec2 describe-instances --region ap-south-1 --query 'Reservations[*].Instances[*].[InstanceId,State.Name,Tags[?Key==`Environment`].Value|[0]]' --output table
 
 echo "Testing dynamic inventory..."
-ansible-inventory --list -vvv
+ANSIBLE_CONFIG=./ansible.cfg ansible-inventory --list -vvv
 
 echo "Running playbook with dynamic inventory..."
-ansible-playbook \
-  -i ansible/inventory.aws_ec2.yml \
-  ansible/playbook.yml \
+ANSIBLE_CONFIG=./ansible.cfg ansible-playbook \
+  -i inventory.aws_ec2.yml \
+  playbook.yml \
   --limit "$ENV"
 
