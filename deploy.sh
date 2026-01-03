@@ -30,9 +30,9 @@ sleep 120
 echo "Testing dynamic inventory..."
 ansible-inventory --list
 
-echo "Running playbook..."
+echo "Running playbook with static inventory..."
 ansible-playbook \
-  -i ansible/inventory.aws_ec2.yml \
+  -i ansible/inventory_static.ini \
   ansible/playbook.yml \
   --limit "$ENV"
 
