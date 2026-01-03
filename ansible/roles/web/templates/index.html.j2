@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{{ group_names[0] | upper }} Environment</title>
+  <title>{{ hostvars[inventory_hostname]['tags']['Environment'] | upper }} Environment</title>
 </head>
 <body>
-  <h1>{{ group_names[0] | upper }} ENVIRONMENT</h1>
+  <h1>{{ hostvars[inventory_hostname]['tags']['Environment'] | upper }} ENVIRONMENT</h1>
   <p>Deployed automatically using Terraform + Ansible</p>
   <p>Hostname: {{ inventory_hostname }}</p>
+  <p>Environment: {{ hostvars[inventory_hostname]['tags']['Environment'] }}</p>
 </body>
 </html>
 
