@@ -19,7 +19,7 @@ terraform apply -auto-approve \
   -var="environment=$ENV" \
   -var="instance_count=2"
 
-cd ansible
+cd ../ansible
 
 echo "Fixing SSH key permissions..."
 chmod 600 ~/.ssh/my-keypair.pem
