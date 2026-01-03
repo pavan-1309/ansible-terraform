@@ -3,6 +3,12 @@ set -e
 
 ENV=$1
 
+if [ -z "$ENV" ]; then
+  echo "Usage: $0 <environment>"
+  echo "Example: $0 test"
+  exit 1
+fi
+
 echo "Deploying environment: $ENV"
 
 cd terraform
@@ -15,8 +21,11 @@ terraform apply -auto-approve \
 
 cd ..
 
+echo "Waiting for instances to be ready..."
+sleep 60
+
 ansible-playbook \
   -i ansible/inventory.aws_ec2.yml \
   ansible/playbook.yml \
-  --limit $ENV
+  --limit "$ENV"
 
